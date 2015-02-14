@@ -1,0 +1,39 @@
+<div class="container">
+  <!-- add the tweet posting form -->
+  <form action="/sessions/<%= @user.id %>/tweets" method="post">
+  <lable for="original_url">What's on your mind!</lable>
+  <br>
+  <input type="text" name="content" placeholder="Best day of my life!!" />
+  <br>
+  <br>
+  <input type="submit" value="Post my tweet!">
+  </form>
+  <!-- add the feed to pull top 10 people the user is following and their own lastest tweets -->
+  <!-- need to implement 10 feeds per page -->
+  <!-- need to implement user shouldn't be able to retweet a tweet more than once, display of the retweet should be different, and the retweet counter is not working -->
+  <h3>Latest Tweet Feed</h3>
+  <ul>
+    <% @tweets.each do |tweet| %>
+    <li><a href="/sessions/<%= tweet.user.id %>/profile"><%= tweet.user.username %></a>: <%= tweet.content %></li>
+      <ul>
+        <li>Created at <%= tweet.created_at %></li>
+        <% if Tweet.find(tweet.id).retweet_count != 0 %>
+        <li>Retweeted: <%= Tweet.find(tweet.id).retweet_count %> times</li>
+        <% end %>
+        <% if current_user && tweet.user.id == current_user.id %>
+        <li>
+          <form action="/sessions/<%= @user.id %>/tweets/<%= tweet.id %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="Delete Tweet!!?">
+          </form>
+        </li>
+        <% elsif current_user %>
+          <form action="/sessions/<%= @user.id %>/tweets/<%= tweet.id %>" method="post">
+          <input type="submit" value="Retweet!">
+          </form>
+        <% end %>
+      </ul>
+      <% end %>
+  </ul>
+</div>
+

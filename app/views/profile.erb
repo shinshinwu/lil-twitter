@@ -1,0 +1,48 @@
+<div id="profileheader">
+<!-- add the tweet posting form -->
+<% if current_user %>
+  <form action="/sessions/<%= @user.id %>/tweets" method="post">
+  <lable for="original_url">What's on your mind!</lable>
+  <br>
+  <input type="text" name="content" placeholder="Best day of my life!!" />
+  <br>
+  <br>
+  <input type="submit" value="Post my tweet!">
+  </form>
+  <% else %>
+    <h1>
+      <%= "#{@user.name}'s Profile" %>
+    </h1>
+<% end %>
+</div>
+  <!-- add the feed to pull top 10 people the user is following and their own lastest tweets -->
+  <!-- need to implement 10 feeds per page -->
+<div id="feed">
+  <h2><%= @user.username %>'s Latest Tweet Feed</h2>
+    <hr id="homehr">
+    <% if @user == current_user %>
+      <p></p>
+    <% elsif  Following.where(following_id: current_user.id).find {|following_obj| following_obj.follower_id == @user.id }.nil? %>
+      <form action="/sessions/<%= @user.id %>/profile" method="post">
+        <input type="submit" value="Follow Me">
+      </form>
+    <% else %>
+      <a href="">Following</a>
+    <% end %>
+  <ul style="line-height:1.4;">
+    <% @user.tweets.reverse.each do |tweet| %>
+    <li><%= tweet.content %></li>
+      <ul>
+        <li>Created at <%= tweet.created_at %></li>
+        <% if current_user && tweet.user.id == current_user.id %>
+        <li>
+          <form action="/sessions/<%= @user.id %>/tweets/<%= tweet.id %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="submit" value="Delete Tweet!!?">
+          </form>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </ul>
+</div>

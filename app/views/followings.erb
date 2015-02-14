@@ -1,0 +1,24 @@
+<div id="profileheader">
+  <h1>
+    <%= @user.username %> is Following:
+  </h1>
+</div>
+<div id="feed">
+  <h2>FOLLOWING</h2>
+<!--     <hr id="homehr">
+      <ul style="line-height:1.4;">
+      <% # @tweets.each do |tweet| %>
+      <li><%= #"#{tweet.content}<br>Tweeted by #{tweet.user.name} on #{tweet.created_at}" %></li>
+      <% # end %>
+      </ul> -->
+      <hr id="homehr">
+      <table border="1">
+       <% @user.follower.each do |follower_id| %>
+        <tr>
+          <td><a href="/sessions/<%= follower_id %>/profile"><%= User.find(follower_id).username %></td>
+          <td><%= User.find(follower_id).tweets.last.content %></td>
+          <td><%= User.find(follower_id).tweets.last.created_at %></td>
+        </tr>
+       <% end %>
+      </table>
+</div>

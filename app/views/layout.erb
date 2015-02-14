@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    normalize.css removes cross-browser differences in defaults, e.g.,
+    differences in how form elements appear between Firefox and IE
+    See: http://necolas.github.com/normalize.css/
+  -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <!--
+    application.css is where you put your styles
+  -->
+  <link rel="stylesheet" href="/css/application.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/js/application.js"></script>
+
+  <title>DeRpEr</title>
+</head>
+<body>
+  <div id="header">
+    <p>
+      <img style="height:auto; width:auto; max-width:100px; max-height:100px;" src="imgs/logo.png" /> DeRpEr
+    </p>
+  </div>
+  <div id="navigation">
+   <ul>
+    <% if current_user %>
+      <li><a href="/sessions/<%= current_user.id %>">Home</a></li>
+    <% else %>
+     <li><a href="/">Home</a></li>
+    <% end %>
+    <% if current_user %>
+    <li>Signed in as: <a href="/sessions/<%= current_user.id %>/profile"><%= current_user.username %></a></li>
+
+    <li><a href="/sessions/<%= current_user.id %>/followers">Followers: <%=current_user.follower.count %></a></li>
+
+    <li><a href="/sessions/<%= current_user.id %>/followings">Following: <%= (current_user.following.count - 1) %></a></li>
+
+      <form id="sign-out" action="/sessions/<%= current_user.id %>" method="post">
+        <input name="_method" type="hidden" value="delete" />
+        <input type="submit" value="Sign Out">
+      </form>
+    </li>
+    <% else %>
+      <li><a href="/sessions/new">Sign In</a></li>
+      <li><a href="/users/new">Sign Up</a></li>
+    <% end %>
+    </ul>
+  </div>
+  <%= yield %>
+</body>
+</html>

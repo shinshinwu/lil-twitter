@@ -1,0 +1,53 @@
+<div id="container">
+  <div id="header">
+    <p>
+      <img style="height:auto; width:auto; max-width:100px; max-height:100px;" src="imgs/logo.png" /> DeRpEr
+    </p>
+  </div>
+  <div id="navigation">
+    <ul>
+      <li>Welcome To Derper</li>
+    </ul>
+  </div>
+  <div id="landing">
+    <h4>
+      Sign Up
+    </h4>
+        <p>
+    <form id="sign-up" method="post" action="/users">
+      <label class="label" for="name">Username: </label>
+      <input type="text" name="user[username]" placeholder="average joe...">
+      <br>
+      <label class="label" for="email">Email: </label>
+      <input type="email" name="user[email]" placeholder="e.g., me@example.com">
+      <br>
+      <label class="label" for="password">Password: </label>
+      <input type="password" name="user[password]" placeholder="Please enter 6 or more characters">
+      <br>
+      <br>
+      <div class="submit"><input type="submit" value="Sign Me Up!"></div>
+
+    </form>
+    </p>
+  </div>
+  <hr id="indexhr">
+  <div id="landing">
+    <h4>
+      Log In
+    </h4>
+    <p>
+    <form id="sign-in" method="post" action="/sessions">
+      <label class="label" for="email">Email: </label>
+      <input type="email" name="user[email]" placeholder="e.g., me@example.com">
+      <br>
+      <label class="label" for="password">Password: </label>
+      <input type="password" name="user[password]" placeholder="Please enter 6 or more characters">
+      <br>
+      <br>
+      <div class="submit"><input type="submit" value="Sign Me In!"></div>
+
+    </form>
+    </p>
+  </div>
+
+</div>
